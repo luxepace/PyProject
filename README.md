@@ -1,13 +1,24 @@
+
 # PyProject
 Установка
 
-1. Установите Python 3.10 или выше.
-2. Установите необходимые зависимости:
-        pip install -r requirements.txt    
-3. Подключите базу данных Django и примените миграции:
-        python manage.py migrate    
-4. Запустите сервер разработки Django:
-        python manage.py runserver
+Установите Python 3.10 или выше.
+Установите необходимые зависимости: 
+
+```bash
+pip install -r requirements.txt
+```
+    
+Подключите базу данных Django и примените миграции: 
+
+```bash
+python manage.py migrate
+```
+Запустите сервер разработки Django: 
+
+```bash
+python manage.py runserver
+```
 
 Файл базы данных называется: db.sqlite3
 
