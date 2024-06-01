@@ -1,0 +1,31 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}
+    <h1>Поиск рецептов</h1>
+
+    <form method="get" action="{% url 'search_recipes' %}">
+      <div class="input-group mb-3">
+          <input type="text" class="form-control" id="search_query" name="query" placeholder="Название рецепта или автор">
+          <div class="input-group-append">
+              <button type="submit" class="btn btn-primary">Найти</button>
+          </div>
+      </div>
+    </form>
+        {% if recipes %}
+            {% for recipe in recipes %}
+            <div class="card my-4">
+                <div class="card-body">
+                  <h5 class="card-title">{{ recipe.title }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">Автор: {{ recipe.author }}</h6><br>
+                  <h6 class="card-text" style="overflow: hidden; max-height: 60px;">{{ recipe.description }} </h6><br>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    Дата последнего изменения: {{ recipe.updated_at|date:"d.m.Y" }}
+                  </h6>
+                  <a href="{% url 'recipes-detail' recipe.pk %}" class="card-link">Посмотреть рецепт</a>
+                </div>
+              </div><br>
+                          {% endfor %}
+    {% else %}
+        <p>Не найдено ни одного рецепта.</p>
+    {% endif %}
+{% endblock %}

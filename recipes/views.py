@@ -3,6 +3,10 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+from .models import Recipe
+from .forms import RecipeSearchForm
+from django.db.models import Q
+
 from . import models
 
 class RecipeListView(ListView):
@@ -21,6 +25,17 @@ def home(request):
 
 def about(request):
   return render(request, 'recipes/about.html', {'title': 'about page'})
+
+def search_recipes(request):
+    query = request.GET.get('query')
+    if query:
+        recipes = Recipe.objects.filter(
+            Q(title__icontains=query) | Q(author__username__icontains=query)
+        )
+    else:
+        recipes = Recipe.objects.all()  # Поиск по всем рецептам, если запрос пустой
+
+    return render(request, 'recipes/search_results.html', {'recipes': recipes})
 
 
 class RecipeDetailView(DetailView):
